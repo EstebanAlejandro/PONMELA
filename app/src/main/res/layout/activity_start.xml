@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondos01"
+    tools:context="com.estebanposada.ponmela.Start">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="300sp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginBottom="25sp">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="40sp"
+                android:layout_gravity="center"
+                android:background="@drawable/boton_02"
+                android:layout_marginRight="15sp"
+                android:text="@string/Reg"
+                android:textColor="@color/white"
+                android:id="@+id/breg"
+                android:textStyle="bold"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="40sp"
+                android:layout_gravity="center"
+                android:background="@drawable/boton_02"
+                android:layout_marginLeft="15sp"
+                android:text="@string/log"
+                android:textColor="@color/white"
+                android:id="@+id/blog"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
