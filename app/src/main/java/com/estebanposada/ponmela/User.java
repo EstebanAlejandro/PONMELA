@@ -14,13 +14,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+
 public class User extends AppCompatActivity {
 
     /*
     ASDF FIREBASE
      */
 
-    //private Firebase mRef;
+    private Firebase mRef;
     private Button ingresar;
     private EditText song;
 
@@ -52,7 +55,7 @@ public class User extends AppCompatActivity {
         /*
         ASDF FIREBASE
          */
-/*
+
         Firebase.setAndroidContext(this);
         mRef = new Firebase("https://boiling-fire-6064.firebaseio.com/");
 
@@ -75,7 +78,7 @@ public class User extends AppCompatActivity {
                     }
                 });
             }
-        });*/
+        });
 
         String probe[]=getResources().getStringArray(R.array.probe);
         int j;

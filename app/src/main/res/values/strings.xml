@@ -40,4 +40,7 @@
     </string-array>
     <string name="lvp">What difference does it make</string>
     <string name="title_activity_data_mybase">dataMybase</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
