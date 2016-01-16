@@ -1,11 +1,13 @@
 package com.estebanposada.ponmela;
 
+
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,19 +16,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
-public class User extends AppCompatActivity {
 
-    /*
-    ASDF FIREBASE
-     */
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class playlist extends Fragment {
 
     private Firebase mRef;
     private Button ingresar;
     private EditText song;
-
     private LName[] dataName=
             new LName[]{
                     new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
@@ -44,62 +47,72 @@ public class User extends AppCompatActivity {
             };
     ListView lstNames;
 
+    public playlist() {
+        // Required empty public constructor
+    }
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
-
-        ingresar=(Button)findViewById(R.id.b_ingresar);
-        song= (EditText)findViewById(R.id.et_song);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_playlist, container, false);
         /*
-        ASDF FIREBASE
+        Firebase
          */
-
-        Firebase.setAndroidContext(this);
+        Firebase.setAndroidContext(getContext());
         mRef = new Firebase("https://boiling-fire-6064.firebaseio.com/");
-
-        ingresar.setOnClickListener(new View.OnClickListener() {
+        lstNames=(ListView) view.findViewById(R.id.Lstpl);
+        Firebase RequestedSongs=mRef.child("RequestedSongs");
+        RequestedSongs.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-
-                Firebase requestedSongs = mRef.child("RequestedSongs").child(song.getText().toString());
-
-                if (song.getText().toString().equals("")){
-                    Toast.makeText(User.this, "Ingrese canción", Toast.LENGTH_SHORT).show();
-                }else {
-                    RequestedSong nueva = new RequestedSong(song.getText().toString());
-
-                    requestedSongs.setValue(nueva, new Firebase.CompletionListener() {
-                        @Override
-                        public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-                            if (firebaseError != null) {
-                                Toast.makeText(User.this, "No se pudo enviar la canción" + firebaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(User.this, "Se envio la cancion correctamente", Toast.LENGTH_SHORT).show();
-                                song.setText("");
-                            }
-                        }
-                    });
+            public void onDataChange(DataSnapshot snapshot) {
+            int contador = (int)snapshot.getChildrenCount();
+            int i =0;
+                String[] Songs = new String[contador];
+                for(DataSnapshot postSnapshot : snapshot.getChildren()){
+                    RequestedSongsDJ RSDJ = postSnapshot.getValue(RequestedSongsDJ.class);
+                    Songs[i]=RSDJ.getNombre();
+                    i++;
                 }
+                int j;
+                for(j=0;j<Songs.length;j++)
+                    dataName[j].setSong(Songs[j]);
+                Adapter Adap = new Adapter(getActivity(),dataName);
+                //lstNames=(ListView) view.findViewById(R.id.Lstpl);
+                lstNames.setAdapter(Adap);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                Toast.makeText(getActivity(),"Lectura Fallida",Toast.LENGTH_SHORT).show();
             }
         });
+        /*
+        Final Firebase
+         */
+        // Inflate the layout for this fragment
 
-        String probe[]=getResources().getStringArray(R.array.probe);
+/*
+        String probe[]=getResources().getStringArray(R.array.probe2);
         int j;
         for(j=0;j<probe.length;j++)
             dataName[j].setSong(probe[j]);
 
-        Adapter Adap2 = new Adapter(this, dataName);
-        //ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,);
-        lstNames = (ListView) findViewById(R.id.Lst2);
-        lstNames.setAdapter(Adap2);
+        Adapter Adap = new Adapter(getActivity(), dataName);
+        lstNames = (ListView) view.findViewById(R.id.Lstpl);
+        lstNames.setAdapter(Adap);*/
+
+
+        return view;
+
+
     }
 
     public class Adapter extends ArrayAdapter {
         public Adapter(Context context, LName[] dataName) {
-            super(context, R.layout.request, dataName);
+            super(context, R.layout.playlist, dataName);
         }
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflate = LayoutInflater.from(getContext());

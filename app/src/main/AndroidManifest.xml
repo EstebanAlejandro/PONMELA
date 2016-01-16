@@ -30,7 +30,8 @@
         <activity android:name=".dataMybase" />
         <activity android:name=".Start" />
         <activity android:name=".User" />
-        <activity android:name=".Dj"></activity>
+        <activity android:name=".Dj" />
+        <activity android:name=".SelectProfile"></activity>
     </application>
 
 </manifest>

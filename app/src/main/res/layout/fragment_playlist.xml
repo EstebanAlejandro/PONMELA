@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/fondos06"
+    tools:context="com.estebanposada.ponmela.playlist">
+
+    <!-- TODO: Update blank fragment layout -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/boton_02"
+            android:layout_marginTop="20sp"
+            android:orientation="horizontal">
+            <EditText android:id="@+id/et_song"
+                android:layout_width="wrap_content"
+                android:layout_height="45sp"
+                android:layout_weight="4"
+                android:textColorHint="@color/white"
+                android:hint="@string/sBuscar"
+                android:layout_gravity="center"
+                android:layout_marginRight="30sp"
+                android:layout_marginLeft="30sp"/>
+            <Button
+                android:layout_width="25sp"
+                android:layout_height="35sp"
+                android:layout_weight="1"
+                android:layout_marginRight="50sp"
+                android:layout_gravity="center"
+                android:background="@drawable/lupita"
+                android:id="@+id/b_ingresar" />
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Lstpl"
+            android:layout_marginTop="15sp">
+        </ListView>
+
+
+</LinearLayout>

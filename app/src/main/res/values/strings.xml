@@ -23,6 +23,8 @@
     <string name="sBotonInsertar">Acept</string>
     <string name="Reg">Register</string>
     <string name="log">Log in</string>
+    <string name="dj">Dj</string>
+    <string name="user">User</string>
 
     <string-array name="probe">
         <item>Uno</item>
@@ -37,6 +39,20 @@
         <item>Dieci</item>
         <item>Undici</item>
         <item>Dodici</item>
+    </string-array>
+    <string-array name="probe2">
+        <item>One</item>
+        <item>Two</item>
+        <item>Three</item>
+        <item>Four</item>
+        <item>Five</item>
+        <item>Six</item>
+        <item>Seven</item>
+        <item>Eigth</item>
+        <item>Nine</item>
+        <item>Ten</item>
+        <item>Eleven</item>
+        <item>Twelve</item>
     </string-array>
     <string name="lvp">What difference does it make</string>
     <string name="title_activity_data_mybase">dataMybase</string>

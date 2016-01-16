@@ -259,7 +259,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
-            startActivity(new Intent(getApplicationContext(), User.class));
+            startActivity(new Intent(getApplicationContext(), SelectProfile.class));
+            //startActivity(new Intent(getApplicationContext(), Dj.class));
         }
     }
 
