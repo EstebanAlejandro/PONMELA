@@ -1,6 +1,7 @@
 package com.estebanposada.ponmela;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,23 +31,7 @@ import com.firebase.client.ValueEventListener;
 public class playlist extends Fragment {
 
     private Firebase mRef;
-    private Button ingresar;
-    private EditText song;
-    private LName[] dataName=
-            new LName[]{
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel)
-            };
+    private LName[] dataName = new LName[]{};
     ListView lstNames;
 
     public playlist() {
@@ -64,7 +50,6 @@ public class playlist extends Fragment {
         mRef = new Firebase("https://boiling-fire-6064.firebaseio.com/");
         lstNames=(ListView) view.findViewById(R.id.Lstpl);
         Firebase RequestedSongs=mRef.child("RequestedSongs");
-        //Query query = RequestedSongs.orderByKey();
         RequestedSongs.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -73,12 +58,18 @@ public class playlist extends Fragment {
                 String[] Songs = new String[contador];
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     RequestedSongsDJ RSDJ = postSnapshot.getValue(RequestedSongsDJ.class);
-                    Songs[i] = RSDJ.getNombre() +"-"+ RSDJ.getUsuario();
+                    Songs[i] = RSDJ.getNombre() + "-" + RSDJ.getUsuario();
                     i++;
                 }
                 int j;
-                for (j = 0; j < Songs.length; j++)
+                for (j = 0; j < Songs.length; j++) {
+
+dataName[j].setIdarrow(R.drawable.arrow_right);
+                    dataName[j].setIdcancel(R.drawable.cancel);
+                    dataName[j].setIdsong(R.drawable.sol);
+                    dataName[j].setIdcheck(R.drawable.check);
                     dataName[j].setSong(Songs[j]);
+                }
                 Adapter Adap = new Adapter(getActivity(), dataName);
                 //lstNames=(ListView) view.findViewById(R.id.Lstpl);
                 lstNames.setAdapter(Adap);
@@ -86,25 +77,15 @@ public class playlist extends Fragment {
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                Toast.makeText(getActivity(), "Lectura Fallida: "+firebaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Lectura Fallida: " + firebaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
         /*
         Final Firebase
          */
-        // Inflate the layout for this fragment
-
-/*
-        String probe[]=getResources().getStringArray(R.array.probe2);
-        int j;
-        for(j=0;j<probe.length;j++)
-            dataName[j].setSong(probe[j]);
-
-        Adapter Adap = new Adapter(getActivity(), dataName);
-        lstNames = (ListView) view.findViewById(R.id.Lstpl);
-        lstNames.setAdapter(Adap);*/
-
-
         return view;
 
 
@@ -116,7 +97,7 @@ public class playlist extends Fragment {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, final View convertView, ViewGroup parent) {
             LayoutInflater inflate = LayoutInflater.from(getContext());
             View Item = inflate.inflate(R.layout.playlist, null);
 
@@ -131,12 +112,77 @@ public class playlist extends Fragment {
 
             ImageView Im3 = (ImageView) Item.findViewById(R.id.image3);
             Im3.setImageResource(dataName[position].getIdcheck());
+            Im3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    toAcept(position);
+                }
+            });
 
             ImageView Im4 = (ImageView) Item.findViewById(R.id.image4);
             Im4.setImageResource(dataName[position].getIdcancel());
+            Im4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(getActivity(), dataName[position].getSong(), Toast.LENGTH_SHORT).show();
+                    toReject(position);
+
+                }
+            });
 
             return Item;
         }
+    }
+
+    public void toAcept (int pos){
+        Firebase.setAndroidContext(getContext());
+        mRef = new Firebase("https://boiling-fire-6064.firebaseio.com/");
+        Firebase requestedSongs = mRef.child("AceptedSongs").child(dataName[pos].getSong());
+        AceptedSongs nueva = new AceptedSongs(dataName[pos].getSong(),"Probe");
+        requestedSongs.setValue(nueva, new Firebase.CompletionListener() {
+            @Override
+            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                if (firebaseError != null){
+                    Toast.makeText(getActivity(), "No se pudo enviar la canción", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), "Se envio la cancion correctamente", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        RequestedSong nue = new RequestedSong(dataName[pos].getSong(),"Probe");
+        Firebase removeSongs = mRef.child("RequestedSongs").child(dataName[pos].getSong());
+        removeSongs.removeValue(new Firebase.CompletionListener() {
+            @Override
+            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                if (firebaseError != null){
+                    Toast.makeText(getActivity(), "No se pudo eliminar la canción", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), "Se eliminó la canción correctamente", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        //requestedSongs
+
+    }
+    public void toReject (int pos){
+        Firebase.setAndroidContext(getContext());
+        mRef = new Firebase("https://boiling-fire-6064.firebaseio.com/");
+        Firebase requestedSongs = mRef.child("RejectedSongs").child(dataName[pos].getSong());
+        RejectedSongs nueva = new RejectedSongs(dataName[pos].getSong(),"Probe");
+        requestedSongs.setValue(nueva, new Firebase.CompletionListener() {
+            @Override
+            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                if (firebaseError != null){
+                    Toast.makeText(getActivity(), "No se pudo enviar la canción", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), "Se envio la cancion correctamente", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
 }

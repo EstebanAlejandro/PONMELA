@@ -29,5 +29,6 @@ public class dataMybase extends AppCompatActivity {
         b2m.putExtra("Xtel", phone.getText().toString());
         setResult(1, b2m);
         finish();
+        startActivity(new Intent(this, MainActivity.class));
     }
 }

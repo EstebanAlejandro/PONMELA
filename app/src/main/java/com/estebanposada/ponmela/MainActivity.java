@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private void fromstart(){
         DatabaseCreatorHelper myhelp = new DatabaseCreatorHelper(this, "baseDatos2", null,1);
         mydatabase = myhelp.getWritableDatabase();
-        Toast.makeText(this, "Nombre: " + myhelp.getDatabaseName().toString(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "Nombre: " + myhelp.getDatabaseName().toString(), Toast.LENGTH_SHORT).show();
     }
 
     public void log_in(View v) {
@@ -293,14 +293,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
     private void updateUI(boolean signedIn) {
         if (signedIn) {
-            Toast.makeText(MainActivity.this, "In", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this, "In", Toast.LENGTH_SHORT).show();
             findViewById(R.id.id_sign_in_button).setVisibility(View.GONE);
             //
             //startActivity(new Intent(getApplicationContext(), Dj.class));
             //
             findViewById(R.id.id_sign_out_button).setVisibility(View.VISIBLE);
         } else {
-            Toast.makeText(MainActivity.this, "Out", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this, "Out", Toast.LENGTH_SHORT).show();
             mStatusUser.setText(R.string.signed_out);
             mStatusEmail.setText(R.string.signed_out2);
             findViewById(R.id.id_sign_in_button).setVisibility(View.VISIBLE);
