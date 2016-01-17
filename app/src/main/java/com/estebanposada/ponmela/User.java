@@ -1,6 +1,7 @@
 package com.estebanposada.ponmela;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,9 +20,7 @@ import com.firebase.client.FirebaseError;
 
 public class User extends AppCompatActivity {
 
-    /*
-    ASDF FIREBASE
-     */
+
 
     private Firebase mRef;
     private Button ingresar;
@@ -68,7 +67,9 @@ public class User extends AppCompatActivity {
                 if (song.getText().toString().equals("")){
                     Toast.makeText(User.this, "Ingrese canción", Toast.LENGTH_SHORT).show();
                 }else {
-                    RequestedSong nueva = new RequestedSong(song.getText().toString());
+                    SharedPreferences prefs= getApplication().getSharedPreferences("PONMELA",0);
+                    String username=prefs.getString("username",null);
+                    RequestedSong nueva = new RequestedSong(song.getText().toString(),username);
 
                     requestedSongs.setValue(nueva, new Firebase.CompletionListener() {
                         @Override
@@ -86,6 +87,9 @@ public class User extends AppCompatActivity {
         });
 
         String probe[]=getResources().getStringArray(R.array.probe);
+
+      /* SharedPreferences prefs= getApplication().getSharedPreferences("PONMELA",0);
+        String username=prefs.getString("username",null);*/
         int j;
         for(j=0;j<probe.length;j++)
             dataName[j].setSong(probe[j]);

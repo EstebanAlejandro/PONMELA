@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 
 
@@ -63,28 +64,29 @@ public class playlist extends Fragment {
         mRef = new Firebase("https://boiling-fire-6064.firebaseio.com/");
         lstNames=(ListView) view.findViewById(R.id.Lstpl);
         Firebase RequestedSongs=mRef.child("RequestedSongs");
+        //Query query = RequestedSongs.orderByKey();
         RequestedSongs.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-            int contador = (int)snapshot.getChildrenCount();
-            int i =0;
+                int contador = (int) snapshot.getChildrenCount();
+                int i = 0;
                 String[] Songs = new String[contador];
-                for(DataSnapshot postSnapshot : snapshot.getChildren()){
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     RequestedSongsDJ RSDJ = postSnapshot.getValue(RequestedSongsDJ.class);
-                    Songs[i]=RSDJ.getNombre();
+                    Songs[i] = RSDJ.getNombre() +"-"+ RSDJ.getUsuario();
                     i++;
                 }
                 int j;
-                for(j=0;j<Songs.length;j++)
+                for (j = 0; j < Songs.length; j++)
                     dataName[j].setSong(Songs[j]);
-                Adapter Adap = new Adapter(getActivity(),dataName);
+                Adapter Adap = new Adapter(getActivity(), dataName);
                 //lstNames=(ListView) view.findViewById(R.id.Lstpl);
                 lstNames.setAdapter(Adap);
             }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                Toast.makeText(getActivity(),"Lectura Fallida",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Lectura Fallida: "+firebaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         /*

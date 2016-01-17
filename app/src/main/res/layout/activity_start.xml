@@ -27,6 +27,7 @@
                 android:textColor="@color/white"
                 android:id="@+id/breg"
                 android:textStyle="bold"/>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="40sp"

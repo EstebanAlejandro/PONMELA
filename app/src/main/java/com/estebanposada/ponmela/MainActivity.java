@@ -3,6 +3,7 @@ package com.estebanposada.ponmela;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -162,12 +163,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
 
-    public void formu (View v) {
-        Intent in = new Intent(this, dataMybase.class);
-        startActivityForResult(in, 1);
-        //   startActivity(new Intent(getApplicationContext(), DataBase.class));
-    }
-
     public void RequestData(){
         GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
             @Override
@@ -180,6 +175,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     if (json != null){
                         String text = "<b>Name :</b> "+json.getString("name");
                         details.setText(Html.fromHtml(text));
+                        /*
+                        prefencias compartidas
+                        para guardar el nombre de usuario.
+                         */
+                                    SharedPreferences prefs= getApplication().getSharedPreferences("PONMELA",0);
+                                    String username=json.getString("name");
+                                    prefs.edit().putString("username",username).commit();
+                        /*
+                        fin preferencias compartidas
+                         */
+                        startActivity(new Intent(getApplicationContext(), SelectProfile.class));
                     }
                 } catch (JSONException e){
                     e.printStackTrace();
@@ -270,6 +276,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             GoogleSignInAccount acct = result.getSignInAccount();
             mStatusUser.setText(getString(R.string.signed_in1, acct.getDisplayName()));
             mStatusEmail.setText(getString(R.string.signed_in2, acct.getEmail()));
+            /*
+            prefencias compartidas
+            para guardar el nombre de usuario.
+             */
+            SharedPreferences prefs= getApplication().getSharedPreferences("PONMELA",0);
+            String username=acct.getDisplayName();
+            prefs.edit().putString("username",username).commit();
+            /*
+            fin preferencias compartidas
+             */
             updateUI(true);
         } else {
             updateUI(false);

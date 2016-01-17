@@ -6,6 +6,7 @@ package com.estebanposada.ponmela;
 public class RequestedSongsDJ {
 
     private String nombre;
+    private String usuario;
 
     public RequestedSongsDJ() {
 
@@ -14,5 +15,7 @@ public class RequestedSongsDJ {
         return nombre;
     }
 
-
+    public String getUsuario() {
+        return usuario;
+    }
 }

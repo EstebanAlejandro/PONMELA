@@ -6,11 +6,20 @@ package com.estebanposada.ponmela;
 public class RequestedSong {
 
     private String nombre;
+    private String usuario;
 
-    public RequestedSong(String nombre) {
-        this.nombre = nombre;
+    public String getUsuario() {
+        return usuario;
     }
 
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public RequestedSong(String nombre, String usuario) {
+        this.nombre = nombre;
+        this.usuario = usuario;
+    }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
