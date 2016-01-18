@@ -7,25 +7,16 @@ public class LName {
 
     private int idsong;
     private String song;
-    private int idarrow;
     private int idcheck;
     private int idcancel;
 
-    public LName(int songic, String songst, int arrowic, int checkic, int cancelic){
+    public LName(int songic, String songst, int checkic, int cancelic){
         this.idsong = songic;
         this.song = songst;
-        this.idarrow = arrowic;
         this.idcheck = checkic;
         this.idcancel = cancelic;
     }
 
-    public int getIdarrow() {
-        return idarrow;
-    }
-
-    public void setIdarrow(int idarrow) {
-        this.idarrow = idarrow;
-    }
 
     public int getIdcancel() {
         return idcancel;

@@ -15,8 +15,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 public class User extends AppCompatActivity {
 
@@ -28,18 +30,26 @@ public class User extends AppCompatActivity {
 
     private LName[] dataName=
             new LName[]{
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.sol, null, R.drawable.arrow_right, R.drawable.check, R.drawable.cancel)
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel)
             };
     ListView lstNames;
 
@@ -85,11 +95,49 @@ public class User extends AppCompatActivity {
                 }
             }
         });
+        lstNames=(ListView) findViewById(R.id.Lst2);
+        Firebase RequestedSongs=mRef.child("RequestedSongs");
+        RequestedSongs.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int contador = (int) dataSnapshot.getChildrenCount();
+                int i = 0;
+                String[] Songs = new String[contador];
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    RequestedSongsDJ RSDJ = postSnapshot.getValue(RequestedSongsDJ.class);
+                    Songs[i] = RSDJ.getNombre();// + "-" + RSDJ.getUsuario();
+                    i++;
+                }
+                int j;
+                for (j = 0; j < Songs.length; j++) {
 
-        String probe[]=getResources().getStringArray(R.array.probe);
+                    /*
+                    dataName[j].setIdcancel(R.drawable.cancel);
+                    dataName[j].setIdsong(R.drawable.sol);
+                    dataName[j].setIdcheck(R.drawable.check);*/
+
+                    dataName[j].setSong(Songs[j]);
+                }
+                for(j=Songs.length;j<dataName.length;j++){
+                    dataName[j].setIdcancel(0);
+                    dataName[j].setIdsong(0);
+                    dataName[j].setIdcheck(0);
+                    dataName[j].setSong(null);
+                    //getView().setVisibility(View.GONE);
+                }
+                Adapter Adap2 = new Adapter(getApplicationContext(), dataName);
+                lstNames.setAdapter(Adap2);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                Toast.makeText(getApplicationContext(), "Lectura Fallida: " + firebaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        /*String probe[]=getResources().getStringArray(R.array.probe);
 
       /* SharedPreferences prefs= getApplication().getSharedPreferences("PONMELA",0);
-        String username=prefs.getString("username",null);*/
+        String username=prefs.getString("username",null);
         int j;
         for(j=0;j<probe.length;j++)
             dataName[j].setSong(probe[j]);
@@ -97,7 +145,7 @@ public class User extends AppCompatActivity {
         Adapter Adap2 = new Adapter(this, dataName);
         //ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,);
         lstNames = (ListView) findViewById(R.id.Lst2);
-        lstNames.setAdapter(Adap2);
+        lstNames.setAdapter(Adap2);*/
     }
 
     public class Adapter extends ArrayAdapter {
@@ -107,7 +155,7 @@ public class User extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflate = LayoutInflater.from(getContext());
-            View Item = inflate.inflate(R.layout.playlist, null);
+            View Item = inflate.inflate(R.layout.request, null);
 
             ImageView Im1 = (ImageView) Item.findViewById(R.id.imagen);
             Im1.setImageResource(dataName[position].getIdsong());
@@ -115,14 +163,14 @@ public class User extends AppCompatActivity {
             TextView tx1 = (TextView) Item.findViewById(R.id.tx);
             tx1.setText(dataName[position].getSong());
 
-            ImageView Im2 = (ImageView) Item.findViewById(R.id.image2);
+           /* ImageView Im2 = (ImageView) Item.findViewById(R.id.image2);
             Im2.setImageResource(dataName[position].getIdarrow());
 
             ImageView Im3 = (ImageView) Item.findViewById(R.id.image3);
             Im3.setImageResource(dataName[position].getIdcheck());
 
             ImageView Im4 = (ImageView) Item.findViewById(R.id.image4);
-            Im4.setImageResource(dataName[position].getIdcancel());
+            Im4.setImageResource(dataName[position].getIdcancel());*/
 
             return Item;
         }

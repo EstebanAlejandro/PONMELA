@@ -15,6 +15,7 @@
     <!--Database-->
 
     <string name="sBuscar">Search</string>
+    <string name="adds">Add Song</string>
     <string name="sInsertar">New User</string>
     <string name="sNombre">Name</string>
     <string name="sPass">Password</string>

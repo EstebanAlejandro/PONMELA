@@ -295,6 +295,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (signedIn) {
             //Toast.makeText(MainActivity.this, "In", Toast.LENGTH_SHORT).show();
             findViewById(R.id.id_sign_in_button).setVisibility(View.GONE);
+            startActivity(new Intent(getApplicationContext(), SelectProfile.class));
             //
             //startActivity(new Intent(getApplicationContext(), Dj.class));
             //

@@ -3,44 +3,29 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="30sp"
+    android:layout_height="50sp"
     android:layout_margin="20sp"
     android:background="@color/gainsboro">
 
     <ImageView
         android:layout_width="25sp"
-        android:layout_height="20sp"
+        android:layout_height="50sp"
         android:id="@+id/imagen"
         android:layout_weight="2"
-
-        android:src="@drawable/sol"/>
+        android:layout_gravity="center"
+        android:src="@drawable/part"
+        android:layout_margin="4sp"/>
     <TextView
         android:layout_width="100sp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="10"
         android:layout_marginLeft="10sp"
         android:gravity="center"
         android:layout_gravity="center_vertical"
         android:id="@+id/tx"
         android:text="@string/lvp"
-        android:textColor="@color/black"
+        android:textColor="@color/lightseagreen"
+        android:layout_marginRight="10sp"
         android:textSize="20sp"/>
-    <ImageView
-        android:layout_width="25sp"
-        android:layout_height="fill_parent"
-        android:id="@+id/image2"
-        android:layout_weight="2"
-        android:src="@drawable/arrow_right"/>
-    <ImageView
-        android:layout_width="40sp"
-        android:layout_height="match_parent"
-        android:id="@+id/image3"
-        android:layout_weight="2"
-        android:src="@drawable/check"/>
-    <ImageView
-        android:layout_width="25sp"
-        android:layout_height="fill_parent"
-        android:id="@+id/image4"
-        android:layout_weight="2"
-        android:src="@drawable/cancel"/>
+
 </LinearLayout>

@@ -19,21 +19,23 @@
         android:layout_marginTop="20sp"
         android:orientation="horizontal">
         <EditText android:id="@+id/et_song"
-            android:layout_width="wrap_content"
+            android:layout_width="100sp"
             android:layout_height="45sp"
-            android:layout_weight="4"
+            android:layout_weight="10"
+            android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:hint="@string/sBuscar"
+            android:gravity="center"
+            android:hint="@string/adds"
             android:layout_gravity="center"
             android:layout_marginRight="30sp"
             android:layout_marginLeft="30sp"/>
         <Button
             android:layout_width="25sp"
             android:layout_height="35sp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_marginRight="50sp"
             android:layout_gravity="center"
-            android:background="@drawable/lupita"
+            android:background="@drawable/add"
             android:id="@+id/b_ingresar" />
     </LinearLayout>
 

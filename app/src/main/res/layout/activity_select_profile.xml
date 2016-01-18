@@ -20,12 +20,18 @@
             android:layout_height="wrap_content"
             android:text="@string/dj"
             android:background="@drawable/boton_02"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
             android:id="@+id/sel1"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/user"
             android:background="@drawable/boton_02"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
             android:id="@+id/sel2"/>
 
     </LinearLayout>

@@ -31,7 +31,30 @@ import com.firebase.client.ValueEventListener;
 public class playlist extends Fragment {
 
     private Firebase mRef;
-    private LName[] dataName = new LName[]{};
+    private Firebase mRef2;
+    int p;
+    private LName[] dataName = new LName[]{
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel)
+    };
     ListView lstNames;
 
     public playlist() {
@@ -58,17 +81,25 @@ public class playlist extends Fragment {
                 String[] Songs = new String[contador];
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     RequestedSongsDJ RSDJ = postSnapshot.getValue(RequestedSongsDJ.class);
-                    Songs[i] = RSDJ.getNombre() + "-" + RSDJ.getUsuario();
+                    Songs[i] = RSDJ.getNombre();// + "-" + RSDJ.getUsuario();
                     i++;
                 }
                 int j;
                 for (j = 0; j < Songs.length; j++) {
 
-dataName[j].setIdarrow(R.drawable.arrow_right);
+                    /*
                     dataName[j].setIdcancel(R.drawable.cancel);
                     dataName[j].setIdsong(R.drawable.sol);
-                    dataName[j].setIdcheck(R.drawable.check);
+                    dataName[j].setIdcheck(R.drawable.check);*/
+
                     dataName[j].setSong(Songs[j]);
+                }
+                for(j=Songs.length;j<dataName.length;j++){
+                    dataName[j].setIdcancel(0);
+                    dataName[j].setIdsong(0);
+                    dataName[j].setIdcheck(0);
+                    dataName[j].setSong(null);
+                    //getView().setVisibility(View.GONE);
                 }
                 Adapter Adap = new Adapter(getActivity(), dataName);
                 //lstNames=(ListView) view.findViewById(R.id.Lstpl);
@@ -107,8 +138,8 @@ dataName[j].setIdarrow(R.drawable.arrow_right);
             TextView tx1 = (TextView) Item.findViewById(R.id.tx);
             tx1.setText(dataName[position].getSong());
 
-            ImageView Im2 = (ImageView) Item.findViewById(R.id.image2);
-            Im2.setImageResource(dataName[position].getIdarrow());
+            //ImageView Im2 = (ImageView) Item.findViewById(R.id.image2);
+            //Im2.setImageResource(dataName[position].getIdarrow());
 
             ImageView Im3 = (ImageView) Item.findViewById(R.id.image3);
             Im3.setImageResource(dataName[position].getIdcheck());
@@ -137,7 +168,16 @@ dataName[j].setIdarrow(R.drawable.arrow_right);
     public void toAcept (int pos){
         Firebase.setAndroidContext(getContext());
         mRef = new Firebase("https://boiling-fire-6064.firebaseio.com/");
+        mRef2= new Firebase("https://boiling-fire-6064.firebaseio.com/");
         Firebase requestedSongs = mRef.child("AceptedSongs").child(dataName[pos].getSong());
+        /*
+        Eliminar Cancion aceptada de la lista de pedidas
+         */
+        final Firebase eliminarcancion=mRef2.child("RequestedSongs");
+        eliminarcancion.child(dataName[pos].getSong()).removeValue();
+        /*
+        fin
+         */
         AceptedSongs nueva = new AceptedSongs(dataName[pos].getSong(),"Probe");
         requestedSongs.setValue(nueva, new Firebase.CompletionListener() {
             @Override
@@ -150,7 +190,7 @@ dataName[j].setIdarrow(R.drawable.arrow_right);
             }
         });
 
-        RequestedSong nue = new RequestedSong(dataName[pos].getSong(),"Probe");
+        //RequestedSong nue = new RequestedSong(dataName[pos].getSong(),"Probe");
         Firebase removeSongs = mRef.child("RequestedSongs").child(dataName[pos].getSong());
         removeSongs.removeValue(new Firebase.CompletionListener() {
             @Override
@@ -179,6 +219,17 @@ dataName[j].setIdarrow(R.drawable.arrow_right);
                     Toast.makeText(getActivity(), "No se pudo enviar la canción", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(getContext(), "Se envio la cancion correctamente", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        Firebase removeSongs = mRef.child("RequestedSongs").child(dataName[pos].getSong());
+        removeSongs.removeValue(new Firebase.CompletionListener() {
+            @Override
+            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                if (firebaseError != null) {
+                    Toast.makeText(getActivity(), "No se pudo eliminar la canción", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Se eliminó la canción correctamente", Toast.LENGTH_SHORT).show();
                 }
             }
         });

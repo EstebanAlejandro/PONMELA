@@ -12,46 +12,5 @@
     android:id="@+id/pagerdj"
     tools:context="com.estebanposada.ponmela.Dj">
 
-    <!--<LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/boton_02"
-            android:layout_marginTop="20sp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="25sp"
-                android:layout_height="25sp"
-                android:src="@drawable/dj"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20sp"/>
-            <EditText android:id="@+id/et_dj_song"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/white"
-                android:hint="@string/sBuscar"
-                android:layout_gravity="center"
-
-                android:layout_marginRight="30sp"
-                android:layout_marginLeft="30sp"/>
-
-
-        </LinearLayout>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/bien"
-            android:id="@+id/b_dj_ingresar"
-            />
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/Lst"
-            android:layout_marginTop="15sp">
-        </ListView>
-    </LinearLayout>-->
 
 </android.support.v4.view.ViewPager>
