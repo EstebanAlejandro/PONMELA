@@ -7,12 +7,14 @@
 
     <string name="btnSignin">Sign In</string>
     <string name="btnSignOut">Sign Out</string>
+    <string name="btnMenuLogout">LogOut</string>
     <string name="signed_out">Out of Sesion</string>
     <string name="signed_out2">You are out</string>
     <string name="loading">Loading</string>
     <string name="signed_in1">User: %s</string>
     <string name="signed_in2">E-mail: %s</string>
     <!--Database-->
+
 
     <string name="sBuscar">Search</string>
     <string name="adds">Add Song</string>

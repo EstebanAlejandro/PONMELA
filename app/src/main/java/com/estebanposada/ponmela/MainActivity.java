@@ -34,6 +34,7 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -57,11 +58,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     EditText user;
     EditText passw;
 
+    String logpro="";
+    int flg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
+
 
 
         //Google+
@@ -77,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+
                 .build();
         //DataBase
 
@@ -105,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                if (AccessToken.getCurrentAccessToken() != null){
+                if (AccessToken.getCurrentAccessToken() != null) {
                     details.setVisibility(View.VISIBLE);
                     RequestData();
 
@@ -127,6 +133,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         fromstart();
         user = (EditText) findViewById(R.id.idname);
         passw = (EditText) findViewById(R.id.idpass);
+        if(flg==1 && logpro.equals("google")){
+            signOut();
+        }
     }
 
     private void fromstart(){
@@ -179,8 +188,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         prefencias compartidas
                         para guardar el nombre de usuario.
                          */
-                                    SharedPreferences prefs= getApplication().getSharedPreferences("PONMELA",0);
+                                    SharedPreferences prefs= getApplication().getSharedPreferences("PONMELA", 0);
                                     String username=json.getString("name");
+                                    logpro="facebook";
+                                    flg=0;
+                                    prefs.edit().putInt("flag_logout",flg).commit();
+                                    prefs.edit().putString("logprovider",logpro).commit();
                                     prefs.edit().putString("username",username).commit();
                         /*
                         fin preferencias compartidas
@@ -213,6 +226,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
 
     }
+
     private void signOut(){
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
@@ -265,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
-            startActivity(new Intent(getApplicationContext(), SelectProfile.class));
+            //startActivity(new Intent(getApplicationContext(), SelectProfile.class));
             //startActivity(new Intent(getApplicationContext(), Dj.class));
         }
     }
@@ -281,7 +295,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             para guardar el nombre de usuario.
              */
             SharedPreferences prefs= getApplication().getSharedPreferences("PONMELA",0);
+            logpro="google";
+            flg=0;
+            prefs.edit().putInt("flag_logout",flg).commit();
+            prefs.edit().putString("logprovider", logpro).commit();
             String username=acct.getDisplayName();
+
             prefs.edit().putString("username",username).commit();
             /*
             fin preferencias compartidas
@@ -295,6 +314,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (signedIn) {
             //Toast.makeText(MainActivity.this, "In", Toast.LENGTH_SHORT).show();
             findViewById(R.id.id_sign_in_button).setVisibility(View.GONE);
+            if (flg==0)
             startActivity(new Intent(getApplicationContext(), SelectProfile.class));
             //
             //startActivity(new Intent(getApplicationContext(), Dj.class));
@@ -310,14 +330,48 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+         /*
+        verificacion logout
+         */
+        SharedPreferences prefs= getApplication().getSharedPreferences("PONMELA", 0);
+        flg=prefs.getInt("flag_logout",0);
+        logpro=prefs.getString("logprovider",null);
+        if(flg==1 && logpro.equals("google")){
+         //   signOut();
+
+            mGoogleApiClient.disconnect();
+            Toast.makeText(MainActivity.this, "Log Google", Toast.LENGTH_SHORT).show();
+        }
+        /*
+        fin
+         */
+
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
+        /*
+        verificacion logout
 
+        SharedPreferences prefs= getApplication().getSharedPreferences("PONMELA", 0);
+        flg=prefs.getInt("logprovider",0);
+        Toast.makeText(MainActivity.this,"flag:logout= "+flg, Toast.LENGTH_SHORT).show();
+        /*
+        fin
+         */
+        //Toast.makeText(MainActivity.this, "Star in Main", Toast.LENGTH_SHORT).show();
         OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
         if (opr.isDone()){
             Log.d(TAG, "Got cached ssign-in");
-            GoogleSignInResult result = opr.get();
-            handleSignInResult(result);
+            if(flg==1 && logpro.equals("google")){
+//                signOut();
+            }else {
+                GoogleSignInResult result = opr.get();
+                handleSignInResult(result);
+            }
         } else {
             showProgressDialog();
             opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
@@ -329,6 +383,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             });
         }
     }
+
     private void showProgressDialog(){
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
