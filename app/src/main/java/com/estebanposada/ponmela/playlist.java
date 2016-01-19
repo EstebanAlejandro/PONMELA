@@ -33,28 +33,7 @@ public class playlist extends Fragment {
     private Firebase mRef;
     private Firebase mRef2;
     int p;
-    private LName[] dataName = new LName[]{
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-            new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel)
-    };
+    private LName[] dataName;
     ListView lstNames;
 
     public playlist() {
