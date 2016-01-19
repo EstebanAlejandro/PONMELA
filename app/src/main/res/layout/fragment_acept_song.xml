@@ -6,8 +6,18 @@
     android:background="@drawable/fondos07"
     tools:context="com.estebanposada.ponmela.AceptSong">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/LAcept"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_margin="20sp"/>
+
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/boton_02"
@@ -20,6 +30,7 @@
             android:gravity="center"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
+            android:inputType="textCapSentences"
             android:hint="@string/sBuscar"
             android:layout_gravity="center"
             android:layout_marginRight="30sp"
@@ -32,12 +43,15 @@
             android:layout_gravity="center"
             android:background="@drawable/lupita"
             android:id="@+id/b_ingresar" />
-    </LinearLayout>
+    </LinearLayout>-->
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/Lstac"
+            android:layout_marginRight="15sp"
+            android:layout_marginLeft="15sp"
+            android:layout_marginBottom="10sp"
             android:layout_marginTop="15sp">
         </ListView>
 

@@ -32,8 +32,30 @@ public class playlist extends Fragment {
 
     private Firebase mRef;
     private Firebase mRef2;
-    int p;
-    private LName[] dataName;
+    public String Stuser[]={};
+    private LName[] dataName=
+            new LName[]{
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
+                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel)
+            };
     ListView lstNames;
 
     public playlist() {
@@ -58,11 +80,15 @@ public class playlist extends Fragment {
                 int contador = (int) snapshot.getChildrenCount();
                 int i = 0;
                 String[] Songs = new String[contador];
+                String[] Users = new String[contador];
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     RequestedSongsDJ RSDJ = postSnapshot.getValue(RequestedSongsDJ.class);
                     Songs[i] = RSDJ.getNombre();// + "-" + RSDJ.getUsuario();
+                    Users[i] = RSDJ.getUsuario();
+
                     i++;
                 }
+                Stuser=Users;
                 int j;
                 for (j = 0; j < Songs.length; j++) {
 
@@ -157,7 +183,7 @@ public class playlist extends Fragment {
         /*
         fin
          */
-        AceptedSongs nueva = new AceptedSongs(dataName[pos].getSong(),"Probe");
+        AceptedSongs nueva = new AceptedSongs(dataName[pos].getSong(),Stuser[pos]);
         requestedSongs.setValue(nueva, new Firebase.CompletionListener() {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
@@ -190,7 +216,7 @@ public class playlist extends Fragment {
         Firebase.setAndroidContext(getContext());
         mRef = new Firebase("https://boiling-fire-6064.firebaseio.com/");
         Firebase requestedSongs = mRef.child("RejectedSongs").child(dataName[pos].getSong());
-        RejectedSongs nueva = new RejectedSongs(dataName[pos].getSong(),"Probe");
+        RejectedSongs nueva = new RejectedSongs(dataName[pos].getSong(),Stuser[pos]);
         requestedSongs.setValue(nueva, new Firebase.CompletionListener() {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {

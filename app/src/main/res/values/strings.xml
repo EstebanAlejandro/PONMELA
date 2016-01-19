@@ -13,6 +13,9 @@
     <string name="loading">Loading</string>
     <string name="signed_in1">User: %s</string>
     <string name="signed_in2">E-mail: %s</string>
+    <string name="Lplay">Playlist</string>
+    <string name="LAcept">Acepted Playlist</string>
+    <string name="LRejec">Rejected List</string>
     <!--Database-->
 
 

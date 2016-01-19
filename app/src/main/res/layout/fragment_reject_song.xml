@@ -7,7 +7,16 @@
     tools:context="com.estebanposada.ponmela.RejectSong">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/LRejec"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_margin="20sp"/>
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/boton_02"
@@ -18,6 +27,7 @@
             android:layout_height="45sp"
             android:layout_weight="4"
             android:textColor="@color/white"
+            android:inputType="textCapSentences"
             android:gravity="center"
             android:textColorHint="@color/white"
             android:hint="@string/sBuscar"
@@ -32,11 +42,14 @@
             android:layout_gravity="center"
             android:background="@drawable/lupita"
             android:id="@+id/b_ingresar" />
-    </LinearLayout>
+    </LinearLayout>-->
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/Lstrej"
+            android:layout_marginRight="15sp"
+            android:layout_marginLeft="15sp"
+            android:layout_marginBottom="10sp"
             android:layout_marginTop="15sp">
         </ListView>
 
