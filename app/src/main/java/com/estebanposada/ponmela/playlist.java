@@ -24,6 +24,9 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,30 +35,7 @@ public class playlist extends Fragment {
 
     private Firebase mRef;
     private Firebase mRef2;
-    public String Stuser[]={};
-    private LName[] dataName=
-            new LName[]{
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel)
-            };
+    public String Stuser[]={}, StSong[]={};
     ListView lstNames;
 
     public playlist() {
@@ -85,30 +65,19 @@ public class playlist extends Fragment {
                     RequestedSongsDJ RSDJ = postSnapshot.getValue(RequestedSongsDJ.class);
                     Songs[i] = RSDJ.getNombre();// + "-" + RSDJ.getUsuario();
                     Users[i] = RSDJ.getUsuario();
-
                     i++;
                 }
-                Stuser=Users;
+                Stuser = Users;
+                StSong = Songs;
+
+                ArrayList<LName> items = new ArrayList<LName>();
                 int j;
-                for (j = 0; j < Songs.length; j++) {
-
-                    /*
-                    dataName[j].setIdcancel(R.drawable.cancel);
-                    dataName[j].setIdsong(R.drawable.sol);
-                    dataName[j].setIdcheck(R.drawable.check);*/
-
-                    dataName[j].setSong(Songs[j]);
-                }
-                for(j=Songs.length;j<dataName.length;j++){
-                    dataName[j].setIdcancel(0);
-                    dataName[j].setIdsong(0);
-                    dataName[j].setIdcheck(0);
-                    dataName[j].setSong(null);
-                    //getView().setVisibility(View.GONE);
-                }
-                Adapter Adap = new Adapter(getActivity(), dataName);
-                //lstNames=(ListView) view.findViewById(R.id.Lstpl);
-                lstNames.setAdapter(Adap);
+                //if (Songs.length != 0) {
+                    for (j = 0; j < Songs.length; j++) {
+                        items.add(new LName(R.drawable.part, Songs[j], R.drawable.check, R.drawable.cancel));
+                    }
+                    lstNames.setAdapter(new Adapter(getContext(), items));
+                //}
             }
 
             @Override
@@ -128,45 +97,41 @@ public class playlist extends Fragment {
     }
 
     public class Adapter extends ArrayAdapter {
-        public Adapter(Context context, LName[] dataName) {
-            super(context, R.layout.playlist, dataName);
+        public Adapter(Context context, List objects) {
+            super(context, 0, objects);
         }
 
         @Override
-        public View getView(final int position, final View convertView, ViewGroup parent) {
-            LayoutInflater inflate = LayoutInflater.from(getContext());
-            View Item = inflate.inflate(R.layout.playlist, null);
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            if (convertView == null){
+                LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.playlist, null);
+            }
+            ImageView im1 = (ImageView) convertView.findViewById(R.id.imagen);
+            TextView tx1 = (TextView) convertView.findViewById(R.id.tx);
+            ImageView im3 = (ImageView) convertView.findViewById(R.id.image3);
+            ImageView im4 = (ImageView) convertView.findViewById(R.id.image4);
 
-            ImageView Im1 = (ImageView) Item.findViewById(R.id.imagen);
-            Im1.setImageResource(dataName[position].getIdsong());
+            LName item = (LName) getItem(position);
+            im1.setImageResource(item.getIdsong());
+            im3.setImageResource(item.getIdcheck());
+            im4.setImageResource(item.getIdcancel());
+            tx1.setText(item.getSong());
 
-            TextView tx1 = (TextView) Item.findViewById(R.id.tx);
-            tx1.setText(dataName[position].getSong());
-
-            //ImageView Im2 = (ImageView) Item.findViewById(R.id.image2);
-            //Im2.setImageResource(dataName[position].getIdarrow());
-
-            ImageView Im3 = (ImageView) Item.findViewById(R.id.image3);
-            Im3.setImageResource(dataName[position].getIdcheck());
-            Im3.setOnClickListener(new View.OnClickListener() {
+            im3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     toAcept(position);
                 }
             });
-
-            ImageView Im4 = (ImageView) Item.findViewById(R.id.image4);
-            Im4.setImageResource(dataName[position].getIdcancel());
-            Im4.setOnClickListener(new View.OnClickListener() {
+            im4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Toast.makeText(getActivity(), dataName[position].getSong(), Toast.LENGTH_SHORT).show();
                     toReject(position);
-
                 }
             });
 
-            return Item;
+            return convertView;
         }
     }
 
@@ -174,16 +139,16 @@ public class playlist extends Fragment {
         Firebase.setAndroidContext(getContext());
         mRef = new Firebase("https://boiling-fire-6064.firebaseio.com/");
         mRef2= new Firebase("https://boiling-fire-6064.firebaseio.com/");
-        Firebase requestedSongs = mRef.child("AceptedSongs").child(dataName[pos].getSong());
+        Firebase requestedSongs = mRef.child("AceptedSongs").child(StSong[pos]);
         /*
         Eliminar Cancion aceptada de la lista de pedidas
          */
         final Firebase eliminarcancion=mRef2.child("RequestedSongs");
-        eliminarcancion.child(dataName[pos].getSong()).removeValue();
+        eliminarcancion.child(StSong[pos]).removeValue();
         /*
         fin
          */
-        AceptedSongs nueva = new AceptedSongs(dataName[pos].getSong(),Stuser[pos]);
+        AceptedSongs nueva = new AceptedSongs(StSong[pos],Stuser[pos]);
         requestedSongs.setValue(nueva, new Firebase.CompletionListener() {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
@@ -196,7 +161,7 @@ public class playlist extends Fragment {
         });
 
         //RequestedSong nue = new RequestedSong(dataName[pos].getSong(),"Probe");
-        Firebase removeSongs = mRef.child("RequestedSongs").child(dataName[pos].getSong());
+        Firebase removeSongs = mRef.child("RequestedSongs").child(StSong[pos]);
         removeSongs.removeValue(new Firebase.CompletionListener() {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
@@ -215,8 +180,8 @@ public class playlist extends Fragment {
     public void toReject (int pos){
         Firebase.setAndroidContext(getContext());
         mRef = new Firebase("https://boiling-fire-6064.firebaseio.com/");
-        Firebase requestedSongs = mRef.child("RejectedSongs").child(dataName[pos].getSong());
-        RejectedSongs nueva = new RejectedSongs(dataName[pos].getSong(),Stuser[pos]);
+        Firebase requestedSongs = mRef.child("RejectedSongs").child(StSong[pos]);
+        RejectedSongs nueva = new RejectedSongs(StSong[pos],Stuser[pos]);
         requestedSongs.setValue(nueva, new Firebase.CompletionListener() {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
@@ -227,7 +192,7 @@ public class playlist extends Fragment {
                 }
             }
         });
-        Firebase removeSongs = mRef.child("RequestedSongs").child(dataName[pos].getSong());
+        Firebase removeSongs = mRef.child("RequestedSongs").child(StSong[pos]);
         removeSongs.removeValue(new Firebase.CompletionListener() {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {

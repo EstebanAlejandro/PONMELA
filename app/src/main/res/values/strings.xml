@@ -16,6 +16,9 @@
     <string name="Lplay">Playlist</string>
     <string name="LAcept">Acepted Playlist</string>
     <string name="LRejec">Rejected List</string>
+    <string name="menu_DJ_Borrar_aceptadas">Borrar lista aceptadas</string>
+    <string name="menu_DJ_Borrar_rechazadas">Borrar lista rechazadas</string>
+    <string name="menu_DJ_Borrar_listas">Borrar Todo</string>
     <!--Database-->
 
 

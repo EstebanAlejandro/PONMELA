@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_borrar_lista_aceptadas"
+        android:title="@string/menu_DJ_Borrar_aceptadas" />
+    <item
+        android:id="@+id/action_borrar_lista_rechazadas"
+        android:title="@string/menu_DJ_Borrar_rechazadas" />
+    <item
+        android:id="@+id/action_borrar_lista_todas"
+        android:title="@string/menu_DJ_Borrar_listas" />
+
+</menu>

@@ -344,6 +344,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             mGoogleApiClient.disconnect();
             Toast.makeText(MainActivity.this, "Log Google", Toast.LENGTH_SHORT).show();
         }
+        if(flg==1 && logpro.equals("facebook")){
+
+        }
         /*
         fin
          */

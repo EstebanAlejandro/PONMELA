@@ -18,35 +18,16 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AceptSong extends Fragment {
 
-    private LName[] dataName=
-            new LName[]{
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel),
-                    new LName(R.drawable.part, null, R.drawable.check, R.drawable.cancel)
-            };
+    public String StSong[]={};
     ListView lstNames;
     private Firebase mRef;
 
@@ -79,13 +60,15 @@ public class AceptSong extends Fragment {
                     Songs[i] = RSDJ.getNombre() + "-" + RSDJ.getUsuario();
                     i++;
                 }
+                StSong=Songs;
+                ArrayList<LName> items = new ArrayList<LName>();
                 int j;
-                for (j = 0; j < Songs.length; j++) {
-                    dataName[j].setSong(Songs[j]);
-                }
-                Adapter Adap = new Adapter(getActivity(), dataName);
-                //lstNames=(ListView) view.findViewById(R.id.Lstpl);
-                lstNames.setAdapter(Adap);
+                //if (Songs.length != 0) {
+                    for (j = 0; j < Songs.length; j++) {
+                        items.add(new LName(R.drawable.part, Songs[j], 0, 0));
+                    }
+                    lstNames.setAdapter(new Adapter(getContext(), items));
+                //}
             }
 
             @Override
@@ -103,31 +86,25 @@ public class AceptSong extends Fragment {
     }
 
     public class Adapter extends ArrayAdapter {
-        public Adapter(Context context, LName[] dataName) {
-            super(context, R.layout.playlist, dataName);
+        public Adapter(Context context, List objects) {
+            super(context, 0, objects);
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflate = LayoutInflater.from(getContext());
-            View Item = inflate.inflate(R.layout.request, null);
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            if (convertView == null){
+                LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.request, null);
+            }
+            ImageView im1 = (ImageView) convertView.findViewById(R.id.imagen);
+            TextView tx1 = (TextView) convertView.findViewById(R.id.tx);
 
-            ImageView Im1 = (ImageView) Item.findViewById(R.id.imagen);
-            Im1.setImageResource(dataName[position].getIdsong());
+            LName item = (LName) getItem(position);
+            im1.setImageResource(item.getIdsong());
+            tx1.setText(item.getSong());
 
-            TextView tx1 = (TextView) Item.findViewById(R.id.tx);
-            tx1.setText(dataName[position].getSong());
 
-            //ImageView Im2 = (ImageView) Item.findViewById(R.id.image2);
-            //Im2.setImageResource(dataName[position].getIdarrow());
-/*
-            ImageView Im3 = (ImageView) Item.findViewById(R.id.image3);
-            Im3.setImageResource(dataName[position].getIdcheck());
-
-            ImageView Im4 = (ImageView) Item.findViewById(R.id.image4);
-            Im4.setImageResource(dataName[position].getIdcancel());*/
-
-            return Item;
+            return convertView;
         }
     }
 
