@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PONMELA</string>
-    <string name="app_id">785948294848324</string>
+
     <string name="name">User name</string>
     <string name="server_client_id">717938831644-n9uilued8vfgnltdc17espisojg3ildd.apps.googleusercontent.com</string>
     <string name="bien">¡Welcome!</string>
