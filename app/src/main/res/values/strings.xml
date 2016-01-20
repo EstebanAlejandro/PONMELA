@@ -1,39 +1,39 @@
 <resources>
     <string name="app_name">PONMELA</string>
     <string name="app_id">785948294848324</string>
-    <string name="name">User name</string>
+    <string name="name">Nombre de Usuario</string>
     <string name="server_client_id">717938831644-n9uilued8vfgnltdc17espisojg3ildd.apps.googleusercontent.com</string>
-    <string name="bien">¡Welcome!</string>
+    <string name="bien">¡Bienvenidos!</string>
 
-    <string name="btnSignin">Sign In</string>
-    <string name="btnSignOut">Sign Out</string>
-    <string name="btnMenuLogout">LogOut</string>
-    <string name="signed_out">Out of Sesion</string>
-    <string name="signed_out2">You are out</string>
-    <string name="loading">Loading</string>
-    <string name="signed_in1">User: %s</string>
-    <string name="signed_in2">E-mail: %s</string>
-    <string name="Lplay">Playlist</string>
-    <string name="LAcept">Acepted Playlist</string>
-    <string name="LRejec">Rejected List</string>
+    <string name="btnSignin">Iniciar Sesión</string>
+    <string name="btnSignOut">Abandonar Sesión</string>
+    <string name="btnMenuLogout">Salir</string>
+    <string name="signed_out">Fuera de Sesión</string>
+    <string name="signed_out2">Estas fuera</string>
+    <string name="loading">Cargando</string>
+    <string name="signed_in1">Usuarios: %s</string>
+    <string name="signed_in2">Correo: %s</string>
+    <string name="Lplay">Lista Reproducción</string>
+    <string name="LAcept">Lista Aceptados</string>
+    <string name="LRejec">Lista Rechazados</string>
     <string name="menu_DJ_Borrar_aceptadas">Borrar lista aceptadas</string>
     <string name="menu_DJ_Borrar_rechazadas">Borrar lista rechazadas</string>
     <string name="menu_DJ_Borrar_listas">Borrar Todo</string>
     <!--Database-->
 
 
-    <string name="sBuscar">Search</string>
-    <string name="adds">Add Song</string>
-    <string name="sInsertar">New User</string>
-    <string name="sNombre">Name</string>
-    <string name="sPass">Password</string>
-    <string name="sEmail">E-mail</string>
-    <string name="sPhone">Phone</string>
-    <string name="sBotonInsertar">Acept</string>
-    <string name="Reg">Register</string>
-    <string name="log">Log in</string>
+    <string name="sBuscar">Buscar</string>
+    <string name="adds">Agregar Canción</string>
+    <string name="sInsertar">Nuevo</string>
+    <string name="sNombre">Nombre</string>
+    <string name="sPass">Contraseña</string>
+    <string name="sEmail">Correo</string>
+    <string name="sPhone">Teléfono</string>
+    <string name="sBotonInsertar">Aceptar</string>
+    <string name="Reg">Registrar</string>
+    <string name="log">Entrar</string>
     <string name="dj">Dj</string>
-    <string name="user">User</string>
+    <string name="user">Usuario</string>
 
     <string-array name="probe">
         <item>Uno</item>

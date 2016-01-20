@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PONMELA</string>
+    <string name="app_id">785948294848324</string>
+    <string name="name">User name</string>
+    <string name="server_client_id">717938831644-n9uilued8vfgnltdc17espisojg3ildd.apps.googleusercontent.com</string>
+    <string name="bien">¡Welcome!</string>
+
+    <string name="btnSignin">Sign In</string>
+    <string name="btnSignOut">Sign Out</string>
+    <string name="btnMenuLogout">LogOut</string>
+    <string name="signed_out">Out of Sesion</string>
+    <string name="signed_out2">You are out</string>
+    <string name="loading">Loading</string>
+    <string name="signed_in1">User: %s</string>
+    <string name="signed_in2">E-mail: %s</string>
+    <string name="Lplay">Playlist</string>
+    <string name="LAcept">Acepted Playlist</string>
+    <string name="LRejec">Rejected List</string>
+    <string name="menu_DJ_Borrar_aceptadas">Erase Acepted playlist</string>
+    <string name="menu_DJ_Borrar_rechazadas">Erase Rejected playlist</string>
+    <string name="menu_DJ_Borrar_listas">Erase all</string>
+    <!--Database-->
+
+
+    <string name="sBuscar">Search</string>
+    <string name="adds">Add Song</string>
+    <string name="sInsertar">New User</string>
+    <string name="sNombre">Name</string>
+    <string name="sPass">Password</string>
+    <string name="sEmail">E-mail</string>
+    <string name="sPhone">Phone</string>
+    <string name="sBotonInsertar">Acept</string>
+    <string name="Reg">Register</string>
+    <string name="log">Log in</string>
+    <string name="dj">Dj</string>
+    <string name="user">User</string>
+
+    <string-array name="probe">
+        <item>Uno</item>
+        <item>Due</item>
+        <item>Tre</item>
+        <item>Quatro</item>
+        <item>Cinque</item>
+        <item>Sei</item>
+        <item>Sete</item>
+        <item>Otto</item>
+        <item>Nove</item>
+        <item>Dieci</item>
+        <item>Undici</item>
+        <item>Dodici</item>
+    </string-array>
+    <string-array name="probe2">
+        <item>One</item>
+        <item>Two</item>
+        <item>Three</item>
+        <item>Four</item>
+        <item>Five</item>
+        <item>Six</item>
+        <item>Seven</item>
+        <item>Eigth</item>
+        <item>Nine</item>
+        <item>Ten</item>
+        <item>Eleven</item>
+        <item>Twelve</item>
+    </string-array>
+    <string name="lvp">What difference does it make</string>
+    <string name="title_activity_data_mybase">dataMybase</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
